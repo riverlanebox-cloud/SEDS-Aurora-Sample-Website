@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SEDS Aurora · VIT-AP Space Club</title>
+    <meta name="description" content="SEDS Aurora — the VIT-AP chapter of Students for the Exploration and Development of Space. Talks, projects, stargazing and a crew of space enthusiasts in Amaravati." />
+    <meta name="theme-color" content="#04050d" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SEDS Aurora · VIT-AP Space Club" />
+    <meta property="og:description" content="Students for the Exploration and Development of Space — VIT-AP University." />
+    <meta property="og:image" content="/images/brand/og.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/styles/main.css" />
+  </head>
+
+  <body>
+    <a class="skip" href="#mission">Skip to content</a>
+
+    <!-- ── Pre-launch countdown ─────────────────────────────── -->
+    <div class="preloader" id="preloader" aria-hidden="true">
+      <div class="preloader__count" id="preloaderCount">3</div>
+      <div class="preloader__label">Pre-flight checks</div>
+      <div class="preloader__bar"><span></span></div>
+    </div>
+
+    <!-- ── Altimeter (scroll progress) ──────────────────────── -->
+    <aside class="altimeter" aria-hidden="true">
+      <div class="altimeter__track">
+        <span class="altimeter__mark" style="--at: 2.9%">Troposphere</span>
+        <span class="altimeter__mark" style="--at: 11.9%">Stratosphere</span>
+        <span class="altimeter__mark" style="--at: 20.2%">Mesosphere</span>
+        <span class="altimeter__mark altimeter__mark--karman" style="--at: 23.8%">Kármán line</span>
+        <span class="altimeter__mark" style="--at: 95.2%">ISS orbit</span>
+        <div class="altimeter__fill" id="altFill"></div>
+        <div class="altimeter__ship" id="altShip">
+          <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M12 2c3 2.5 4.5 6 4.5 10.5L19 16l-1 4-3-2H9l-3 2-1-4 2.5-3.5C7.5 8 9 4.5 12 2Zm0 6.2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Z"/></svg>
+        </div>
+      </div>
+      <div class="altimeter__readout"><span id="altKm">0</span> km</div>
+    </aside>
+
+    <!-- ── Navigation ────────────────────────────────────────── -->
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="#top" aria-label="SEDS Aurora home">
+        <img src="/images/brand/logo.webp" alt="" width="40" height="40" />
+        <span>SEDS<b>Aurora</b></span>
+      </a>
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
+        <a href="#mission">Mission</a>
+        <a href="#divisions">Divisions</a>
+        <a href="#log">Mission Log</a>
+        <a href="#sky">Sky Live</a>
+        <a href="#crew">Crew</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#join" class="nav__cta">Join the crew</a>
+      </nav>
+      <div class="nav__clock" aria-label="Indian Standard Time">
+        <span class="dot"></span><span id="istClock">--:--:--</span> IST
+      </div>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span>
+      </button>
+    </header>
+
+    <main id="top">
+      <!-- ── HERO ──────────────────────────────────────────── -->
+      <section class="hero" id="hero">
+        <canvas class="hero__canvas" id="aurora" aria-hidden="true"></canvas>
+        <div class="hero__hud" aria-hidden="true">
+          <div class="hud hud--tl">
+            <span>LAT 16.4963° N</span><span>LON 80.4997° E</span><span>AMARAVATI · IN</span>
+          </div>
+          <div class="hud hud--tr">
+            <span>MISSION ELAPSED TIME</span>
+            <strong id="met">T+ 0000d 00:00:00</strong>
+            <span>since chapter launch · 07.12.2019</span>
+          </div>
+          <div class="hud hud--bl"><span>SIG ▮▮▮▮▯</span><span>CH 07 · SEDS INDIA NET</span></div>
+          <div class="hud hud--br"><span id="heroFact">Booting telemetry…</span></div>
+        </div>
+
+        <div class="hero__content">
+          <p class="kicker reveal">VIT-AP University · Amaravati · Est. 2019</p>
+          <h1 class="hero__title" aria-label="SEDS Aurora">
+            <span class="hero__seds">SEDS</span>
+            <span class="hero__aurora" data-text="AURORA">AURORA</span>
+          </h1>
+          <p class="hero__sub reveal">Students for the Exploration and Development of Space</p>
+          <div class="hero__ctas reveal">
+            <a href="#join" class="btn btn--primary">Join the crew <span aria-hidden="true">→</span></a>
+            <a href="#log" class="btn btn--ghost">Open mission log</a>
+          </div>
+        </div>
+
+        <a href="#mission" class="hero__scroll" aria-label="Scroll to mission">
+          <span>Begin ascent</span>
+          <i></i>
+        </a>
+      </section>
+
+      <!-- ── MISSION / ABOUT ───────────────────────────────── -->
+      <section class="section mission" id="mission">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">01</span>
+            <p class="eyebrow">Mission brief</p>
+            <h2>Making space exploration<br /><em>everyone's</em> hobby.</h2>
+          </header>
+
+          <div class="mission__grid">
+            <div class="mission__text reveal">
+              <p class="lead">SEDS Aurora is the VIT-AP chapter of <strong>SEDS India</strong>, a student-run organisation that promotes the exploration and development of space.</p>
+              <p>We're working to make space exploration a popular hobby — and to show students it's a viable career. SEDS gives you an organised pathway to start real space projects, break away from the usual class-work, and take your first step towards a career beyond the sky.</p>
+              <p>From guest lectures with astrophysicists to rover builds and late-night debates about settling Mars, Aurora is where curious people come to launch.</p>
+            </div>
+            <ul class="stats reveal" aria-label="Club at a glance">
+              <li><strong data-count="2019">0</strong><span>Year of launch</span></li>
+              <li><strong data-count="3">0</strong><span>Divisions</span></li>
+              <li><strong data-count="5" data-suffix="+">0</strong><span>Missions logged</span></li>
+              <li><strong data-count="28" data-suffix="+">0</strong><span>Alumni crew</span></li>
+            </ul>
+          </div>
+
+          <div class="coordinator reveal" id="coordinator"></div>
+        </div>
+      </section>
+
+      <!-- ── DIVISIONS (orbit) ─────────────────────────────── -->
+      <section class="section divisions" id="divisions">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">02</span>
+            <p class="eyebrow">Three orbits, one mission</p>
+            <h2>Pick your <em>orbit</em>.</h2>
+            <p class="section__intro">Every member flies with one of three divisions. Tap a planet to read its flight plan.</p>
+          </header>
+
+          <div class="orbit reveal">
+            <div class="orbit__system" id="orbitSystem">
+              <div class="orbit__ring orbit__ring--1"></div>
+              <div class="orbit__ring orbit__ring--2"></div>
+              <div class="orbit__ring orbit__ring--3"></div>
+              <div class="orbit__core"><img src="/images/brand/logo.webp" alt="SEDS Aurora emblem" width="140" height="140" /></div>
+              <div class="orbit__arm orbit__arm--1"><button class="planet planet--core" data-division="core" aria-label="Core division"><span>Core</span></button></div>
+              <div class="orbit__arm orbit__arm--2"><button class="planet planet--projects" data-division="projects" aria-label="Projects division"><span>Projects</span></button></div>
+              <div class="orbit__arm orbit__arm--3"><button class="planet planet--outreach" data-division="outreach" aria-label="Outreach division"><span>Outreach</span></button></div>
+            </div>
+
+            <div class="orbit__panel" id="orbitPanel" aria-live="polite">
+              <p class="eyebrow" id="divEyebrow">Division 01 · Core</p>
+              <h3 id="divTitle">Core</h3>
+              <p id="divText"></p>
+              <ul class="chips" id="divChips"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── MISSION LOG ───────────────────────────────────── -->
+      <section class="section log" id="log">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">03</span>
+            <p class="eyebrow">Mission log</p>
+            <h2>Every launch, <em>on record</em>.</h2>
+            <p class="section__intro">Talks, guest lectures, orientations and debates. Open any mission for the full dossier and photos.</p>
+          </header>
+          <div class="upcoming reveal" id="upcoming"></div>
+          <div class="timeline-wrap"><div class="timeline__beam" id="beam" aria-hidden="true"></div><ol class="timeline" id="timeline"></ol></div>
+        </div>
+      </section>
+
+      <!-- ── SKY LIVE ──────────────────────────────────────── -->
+      <section class="section sky" id="sky">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">04</span>
+            <p class="eyebrow">Sky live</p>
+            <h2>What's above <em>Amaravati</em> right now.</h2>
+          </header>
+
+          <div class="sky__grid">
+            <article class="panel panel--iss reveal">
+              <div class="panel__head">
+                <span class="eyebrow">ISS tracker</span>
+                <span class="status" id="issStatus"><i></i>Acquiring signal</span>
+              </div>
+              <canvas id="issGlobe" class="iss__globe" width="520" height="520" aria-label="Globe showing the live position of the International Space Station"></canvas>
+              <dl class="readouts">
+                <div><dt>Latitude</dt><dd id="issLat">—</dd></div>
+                <div><dt>Longitude</dt><dd id="issLon">—</dd></div>
+                <div><dt>Altitude</dt><dd id="issAlt">—</dd></div>
+                <div><dt>Velocity</dt><dd id="issVel">—</dd></div>
+                <div class="wide"><dt>Distance from VIT-AP</dt><dd id="issDist">—</dd></div>
+              </dl>
+            </article>
+
+            <article class="panel panel--moon reveal">
+              <div class="panel__head"><span class="eyebrow">Tonight's Moon</span></div>
+              <svg class="moon" id="moonSvg" viewBox="0 0 200 200" role="img" aria-labelledby="moonName"></svg>
+              <h3 id="moonName">—</h3>
+              <p class="moon__meta"><span id="moonIllum">—</span> illuminated · day <span id="moonAge">—</span> of 29.5</p>
+              <p class="moon__next" id="moonNext"></p>
+            </article>
+
+            <article class="panel panel--fact reveal">
+              <div class="panel__head"><span class="eyebrow">Incoming signal</span><button class="icon-btn" id="nextFact" aria-label="Next fact">↻</button></div>
+              <p class="fact" id="factText" aria-live="polite"></p>
+              <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── CREW ──────────────────────────────────────────── -->
+      <section class="section crew" id="crew">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">05</span>
+            <p class="eyebrow">Crew manifest</p>
+            <h2>The people in the <em>capsule</em>.</h2>
+          </header>
+
+          <div class="crew__controls reveal">
+            <div class="tabs" role="tablist" aria-label="Crew tenure">
+              <button role="tab" class="tab" data-tenure="current" id="tabCurrent">Current crew</button>
+              <button role="tab" class="tab" data-tenure="legacy" id="tabLegacy">Legacy crew</button>
+            </div>
+            <div class="filters" id="crewFilters" role="group" aria-label="Filter by division">
+              <button class="chip is-active" data-filter="all">All</button>
+              <button class="chip" data-filter="Core">Core</button>
+              <button class="chip" data-filter="Projects">Projects</button>
+              <button class="chip" data-filter="Outreach">Outreach</button>
+            </div>
+          </div>
+          <p class="crew__note" id="crewNote"></p>
+          <ul class="crew__grid" id="crewGrid"></ul>
+        </div>
+      </section>
+
+      <!-- ── TRANSMISSIONS (newsletter) ────────────────────── -->
+      <section class="section transmissions" id="transmissions">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">06</span>
+            <p class="eyebrow">Transmissions</p>
+            <h2>The monthly <em>dispatch</em>.</h2>
+            <p class="section__intro">Our space &amp; astronomy newsletter — launches, sky events and the science behind them, every month.</p>
+          </header>
+          <ul class="tx__list" id="txList"></ul>
+        </div>
+      </section>
+
+      <!-- ── GALLERY ───────────────────────────────────────── -->
+      <section class="section gallery" id="gallery">
+        <div class="container">
+          <header class="section__head reveal">
+            <span class="section__index">07</span>
+            <p class="eyebrow">Flight recorder</p>
+            <h2>Frames from the <em>journey</em>.</h2>
+          </header>
+          <div class="filters reveal" id="galleryFilters" role="group" aria-label="Filter gallery by mission"></div>
+          <div class="masonry" id="masonry"></div>
+        </div>
+      </section>
+
+      <!-- ── JOIN ──────────────────────────────────────────── -->
+      <section class="section join" id="join">
+        <div class="container join__inner">
+          <header class="section__head section__head--center reveal">
+            <span class="section__index">08</span>
+            <p class="eyebrow">Launch sequence</p>
+            <h2>Ready for <em>lift-off</em>?</h2>
+            <p class="section__intro">No rocket science degree needed. Just curiosity.</p>
+          </header>
+
+          <ol class="steps reveal">
+            <li><span>01</span><h3>Follow the signal</h3><p>Catch announcements and recruitment drives on our Instagram and LinkedIn.</p></li>
+            <li><span>02</span><h3>Come to a mission</h3><p>Walk into any talk, workshop or stargazing night — everyone's welcome.</p></li>
+            <li><span>03</span><h3>Apply to a division</h3><p>Join Core, Projects or Outreach when recruitment opens each semester.</p></li>
+          </ol>
+
+          <div class="launchpad reveal">
+            <button class="launch" id="launchBtn" aria-describedby="launchHint">
+              <svg class="launch__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" /><circle class="launch__progress" id="launchProgress" cx="60" cy="60" r="54" /></svg>
+              <span class="launch__label" id="launchLabel">Hold to<br />launch</span>
+            </button>
+            <p class="launch__hint" id="launchHint">Press and hold (or hold Space/Enter) to send us a transmission.</p>
+          </div>
+        </div>
+        <div class="rocket" id="rocket" aria-hidden="true">
+          <svg viewBox="0 0 64 160" width="64" height="160"><defs><linearGradient id="flame" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c8"/><stop offset=".4" stop-color="#ffb347"/><stop offset="1" stop-color="#ff4fd8" stop-opacity="0"/></linearGradient></defs><path class="rocket__flame" d="M22 104 Q32 160 42 104Z" fill="url(#flame)"/><path d="M32 4c11 10 16 27 16 48v40l10 14v8l-14-6H20L6 114v-8l10-14V52C16 31 21 14 32 4Z" fill="#eef1ff"/><circle cx="32" cy="46" r="7" fill="#262a52" stroke="#38f9c1" stroke-width="2"/><path d="M20 108h24l-4 6H24Z" fill="#7c5cff"/></svg>
+        </div>
+      </section>
+    </main>
+
+    <!-- ── FOOTER ────────────────────────────────────────────── -->
+    <footer class="footer">
+      <div class="container footer__grid">
+        <div class="footer__brand">
+          <img src="/images/brand/logo.webp" alt="SEDS Aurora emblem" width="72" height="72" loading="lazy" />
+          <div>
+            <strong>SEDS Aurora</strong>
+            <p>VIT-AP chapter of Students for the Exploration and Development of Space · affiliated with SEDS India.</p>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Ground station</p>
+          <address id="footerAddress"></address>
+        </div>
+        <div>
+          <p class="eyebrow">Open a channel</p>
+          <a id="footerEmail" class="footer__mail" href="#"></a>
+          <div class="socials" id="footerSocials"></div>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <span>© <span id="year"></span> SEDS VIT-AP · Designed &amp; built by the SEDS Web Team</span>
+        <span class="footer__egg">psst — try ↑ ↑ ↓ ↓ ← → ← → B A</span>
+      </div>
+    </footer>
+
+    <!-- ── Mission dossier modal ─────────────────────────────── -->
+    <dialog class="dossier" id="dossier" aria-labelledby="dossierTitle">
+      <div class="dossier__inner">
+        <button class="dossier__close" id="dossierClose" aria-label="Close dossier">✕</button>
+        <div class="dossier__media">
+          <div class="carousel" id="carousel"></div>
+          <button class="carousel__btn carousel__btn--prev" id="carPrev" aria-label="Previous photo">‹</button>
+          <button class="carousel__btn carousel__btn--next" id="carNext" aria-label="Next photo">›</button>
+          <div class="carousel__count" id="carCount"></div>
+        </div>
+        <div class="dossier__body" id="dossierBody"></div>
+      </div>
+    </dialog>
+
+    <!-- ── Lightbox ──────────────────────────────────────────── -->
+    <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+      <button class="lightbox__close" id="lbClose" aria-label="Close">✕</button>
+      <button class="lightbox__nav lightbox__nav--prev" id="lbPrev" aria-label="Previous">‹</button>
+      <figure><img id="lbImg" alt="" /><figcaption id="lbCap"></figcaption></figure>
+      <button class="lightbox__nav lightbox__nav--next" id="lbNext" aria-label="Next">›</button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
